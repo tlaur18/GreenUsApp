@@ -1,5 +1,6 @@
 package com.example.greenusapp;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.example.greenusapp.dummy.DummyContent;
@@ -7,14 +8,32 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements ArticleFragment.OnListFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements ArticleFragment.OnListFragmentInteractionListener, VideoFragment.OnFragmentInteractionListener {
     private TextView mTextMessage;
+
+    private Fragment articleFragment;
+    private Fragment videoFragment;
+    private Fragment podcastFagment;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        BottomNavigationView navView = findViewById(R.id.nav_view);
+        mTextMessage = findViewById(R.id.message);
+        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        //Initializing fragments
+        articleFragment = new ArticleFragment();
+        videoFragment = new VideoFragment();
+    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -24,15 +43,11 @@ public class MainActivity extends AppCompatActivity implements ArticleFragment.O
             switch (item.getItemId()) {
                 case R.id.navigation_articles:
                     mTextMessage.setText(R.string.title_articles);
-                    ArticleFragment articleFragment = new ArticleFragment();
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.container, articleFragment);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
+                    openFragment(articleFragment);
                     return true;
                 case R.id.navigation_videos:
                     mTextMessage.setText(R.string.title_videos);
+                    openFragment(videoFragment);
                     return true;
                 case R.id.navigation_podcast:
                     mTextMessage.setText(R.string.title_podcast);
@@ -42,17 +57,20 @@ public class MainActivity extends AppCompatActivity implements ArticleFragment.O
         }
     };
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        mTextMessage = findViewById(R.id.message);
-        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    private void openFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     @Override
     public void onListFragmentInteraction(DummyContent.DummyItem item) {
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
     }
 }
