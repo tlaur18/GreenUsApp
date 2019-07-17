@@ -7,8 +7,12 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.MediaController;
+import android.widget.VideoView;
 
 
 /**
@@ -30,6 +34,9 @@ public class VideoFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private VideoView vid;
+    private MediaController m;
 
     public VideoFragment() {
         // Required empty public constructor
@@ -66,7 +73,23 @@ public class VideoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_video, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_video, container, false);
+
+        vid = (VideoView) rootView.findViewById(R.id.videoView);
+        m = new MediaController(getActivity());
+
+        Button button = (Button) rootView.findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String path = "android.resource://" + getActivity().getPackageName() + "/" + R.raw.samplevid;
+                vid.setVideoURI(Uri.parse(path));
+//                vid.setMediaController(m);
+                vid.start();
+            }
+        });
+
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

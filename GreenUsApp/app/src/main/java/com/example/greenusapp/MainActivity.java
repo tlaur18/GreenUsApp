@@ -13,7 +13,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 public class MainActivity extends AppCompatActivity implements ArticleFragment.OnListFragmentInteractionListener, VideoFragment.OnFragmentInteractionListener {
     private TextView mTextMessage;
@@ -59,8 +61,8 @@ public class MainActivity extends AppCompatActivity implements ArticleFragment.O
 
     private void openFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.container, fragment);
-        transaction.addToBackStack(null);
+        transaction.replace(R.id.activity_main_fragment_container, fragment);
+//        transaction.addToBackStack(null);
         transaction.commit();
     }
 
