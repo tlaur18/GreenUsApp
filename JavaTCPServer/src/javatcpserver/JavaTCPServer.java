@@ -1,6 +1,6 @@
 package javatcpserver;
 
-import domain.Article;
+import articlejar.Article;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;

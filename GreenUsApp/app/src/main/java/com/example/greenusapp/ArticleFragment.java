@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import com.example.greenusapp.dummy.DummyContent;
 import com.example.greenusapp.dummy.DummyContent.DummyItem;
 
-import java.util.List;
+import articlejar.Article;
 
 /**
  * A fragment representing a list of Items.
@@ -73,6 +73,7 @@ public class ArticleFragment extends Fragment {
             }
             recyclerView.setAdapter(new MyArticleRecyclerViewAdapter(DummyContent.ITEMS, mListener));
         }
+
         return view;
     }
 
