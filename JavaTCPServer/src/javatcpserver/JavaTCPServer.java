@@ -1,9 +1,17 @@
 package javatcpserver;
 
+import domain.Article;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,13 +34,39 @@ public class JavaTCPServer {
 
                 System.out.println("Connection established.");
 
-                //Writes to the client
-                ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-                oos.writeObject("Bnag");
-                oos.close();
+                //Writes to client
+                try (ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream())) {
+                    List<Article> allArticles = getArticles();
+                    for (Article article : allArticles) {
+                        oos.writeObject(article);
+                    }
+                }
             }
         } catch (IOException ex) {
             System.err.println("Server Connection error: " + ex.getMessage());
         }
+    }
+
+    private static List<Article> getArticles() {
+        List<Article> allArticles = new ArrayList<>();
+
+        File articleDirectory = new File("./src/resource/articles");
+        File[] articleFiles = articleDirectory.listFiles();
+
+        for (File articleFile : articleFiles) {
+            String articleHeader = articleFile.getName();
+            String articleBodyText = "";
+
+            try (Scanner reader = new Scanner(articleFile)) {
+                while (reader.hasNext()) {
+                    articleBodyText += reader.nextLine() + "\n";
+                }
+            } catch (FileNotFoundException ex) {
+                System.err.println("ArticleFile not found: " + ex.getMessage());
+            }
+            allArticles.add(new Article(articleHeader, articleBodyText));
+        }
+
+        return allArticles;
     }
 }
