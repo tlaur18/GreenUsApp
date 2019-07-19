@@ -23,5 +23,11 @@ public class Article implements Serializable {
     public String getBodyText() {
         return bodyText;
     }
-
+    
+    @Override
+    public String toString() {
+        String s = headline;
+        s += "\n" + bodyText;
+        return s;
+    }
 }

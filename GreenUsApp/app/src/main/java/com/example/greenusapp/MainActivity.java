@@ -18,7 +18,6 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 public class MainActivity extends AppCompatActivity implements ArticleFragment.OnListFragmentInteractionListener, VideoFragment.OnFragmentInteractionListener {
-    private TextView mTextMessage;
 
     private Fragment articleFragment;
     private Fragment videoFragment;
@@ -29,7 +28,6 @@ public class MainActivity extends AppCompatActivity implements ArticleFragment.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        mTextMessage = findViewById(R.id.message);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         //Initializing fragments
@@ -44,15 +42,12 @@ public class MainActivity extends AppCompatActivity implements ArticleFragment.O
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_articles:
-                    mTextMessage.setText(R.string.title_articles);
                     openFragment(articleFragment);
                     return true;
                 case R.id.navigation_videos:
-                    mTextMessage.setText(R.string.title_videos);
                     openFragment(videoFragment);
                     return true;
                 case R.id.navigation_podcast:
-                    mTextMessage.setText(R.string.title_podcast);
                     return true;
             }
             return false;

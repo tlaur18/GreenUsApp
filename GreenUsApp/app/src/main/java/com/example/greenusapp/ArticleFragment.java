@@ -14,6 +14,9 @@ import android.view.ViewGroup;
 
 import com.example.greenusapp.dummy.DummyContent;
 import com.example.greenusapp.dummy.DummyContent.DummyItem;
+import com.example.greenusapp.persistence.JavaTCPClient;
+
+import java.util.concurrent.ExecutionException;
 
 import articlejar.Article;
 
@@ -72,6 +75,15 @@ public class ArticleFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             recyclerView.setAdapter(new MyArticleRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+        }
+
+        JavaTCPClient client = new JavaTCPClient();
+        try {
+            System.out.println(client.execute().get());
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
         return view;
