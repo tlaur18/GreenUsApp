@@ -8,21 +8,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.greenusapp.ArticleFragment.OnListFragmentInteractionListener;
-import com.example.greenusapp.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 
+import articlejar.Article;
+
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link Article} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class MyArticleRecyclerViewAdapter extends RecyclerView.Adapter<MyArticleRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<Article> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyArticleRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public MyArticleRecyclerViewAdapter(List<Article> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -37,8 +38,8 @@ public class MyArticleRecyclerViewAdapter extends RecyclerView.Adapter<MyArticle
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mIdView.setText(String.valueOf(mValues.get(position).getId()));
+        holder.mContentView.setText(String.valueOf(mValues.get(position).getHeadline()));
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +62,7 @@ public class MyArticleRecyclerViewAdapter extends RecyclerView.Adapter<MyArticle
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
+        public Article mItem;
 
         public ViewHolder(View view) {
             super(view);

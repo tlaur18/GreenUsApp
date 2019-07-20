@@ -3,19 +3,17 @@ package com.example.greenusapp;
 import android.net.Uri;
 import android.os.Bundle;
 
-import com.example.greenusapp.dummy.DummyContent;
+import com.example.greenusapp.dummy.ArticleList;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.VideoView;
+
+import articlejar.Article;
 
 public class MainActivity extends AppCompatActivity implements ArticleFragment.OnListFragmentInteractionListener, VideoFragment.OnFragmentInteractionListener {
 
@@ -62,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements ArticleFragment.O
     }
 
     @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+    public void onListFragmentInteraction(Article article) {
 
     }
 

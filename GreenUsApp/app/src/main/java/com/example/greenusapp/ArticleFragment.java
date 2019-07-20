@@ -12,8 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.greenusapp.dummy.DummyContent;
-import com.example.greenusapp.dummy.DummyContent.DummyItem;
+import com.example.greenusapp.dummy.ArticleList;
 import com.example.greenusapp.persistence.JavaTCPClient;
 
 import java.util.concurrent.ExecutionException;
@@ -65,6 +64,16 @@ public class ArticleFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_article_list, container, false);
 
+        //Get articles from server and add to list.
+        JavaTCPClient client = new JavaTCPClient();
+        try {
+            ArticleList.ITEMS.addAll(client.execute().get());
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -74,16 +83,7 @@ public class ArticleFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyArticleRecyclerViewAdapter(DummyContent.ITEMS, mListener));
-        }
-
-        JavaTCPClient client = new JavaTCPClient();
-        try {
-            System.out.println(client.execute().get());
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            recyclerView.setAdapter(new MyArticleRecyclerViewAdapter(ArticleList.ITEMS, mListener));
         }
 
         return view;
@@ -119,6 +119,6 @@ public class ArticleFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(Article article);
     }
 }

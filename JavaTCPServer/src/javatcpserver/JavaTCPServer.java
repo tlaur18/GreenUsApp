@@ -17,7 +17,7 @@ import java.util.Scanner;
  */
 public class JavaTCPServer {
 
-    public static final int SERVER_PORT = 360;
+    private static final int SERVER_PORT = 360;
 
     public static void main(String[] args) {
         try {
@@ -51,6 +51,7 @@ public class JavaTCPServer {
         File articleDirectory = new File("./src/resource/articles");
         File[] articleFiles = articleDirectory.listFiles();
 
+        int id = 0;
         for (File articleFile : articleFiles) {
             String articleHeader = articleFile.getName();
             String articleBodyText = "";
@@ -62,7 +63,7 @@ public class JavaTCPServer {
             } catch (FileNotFoundException ex) {
                 System.err.println("ArticleFile not found: " + ex.getMessage());
             }
-            allArticles.add(new Article(articleHeader, articleBodyText));
+            allArticles.add(new Article(articleHeader, articleBodyText, id++));
         }
 
         return allArticles;

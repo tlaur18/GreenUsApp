@@ -10,10 +10,12 @@ public class Article implements Serializable {
 
     private String headline;
     private String bodyText;
+    private int id;
 
-    public Article(String headline, String bodyText) {
+    public Article(String headline, String bodyText, int id) {
         this.headline = headline;
         this.bodyText = bodyText;
+        this.id = id;
     }
 
     public String getHeadline() {
@@ -22,6 +24,10 @@ public class Article implements Serializable {
 
     public String getBodyText() {
         return bodyText;
+    }
+    
+    public int getId() {
+        return id;
     }
     
     @Override

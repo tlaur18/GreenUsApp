@@ -14,6 +14,8 @@ import articlejar.Article;
 
 public class JavaTCPClient extends AsyncTask<String, Void, List<Article>> {
 
+    private static final int SERVER_PORT = 360;
+
     @Override
     protected List<Article> doInBackground(String... strings) {
         List<Article> articles = new ArrayList<>();
@@ -31,9 +33,9 @@ public class JavaTCPClient extends AsyncTask<String, Void, List<Article>> {
                 System.out.println("End of transmission.");
             }
         } catch (ClassNotFoundException ex) {
-            System.out.println("Problem reading file from inputStream: " + ex.getMessage());
+            System.err.println("Problem reading file from inputStream: " + ex.getMessage());
         } catch (IOException ex) {
-            System.out.println("Problem creating ObjectInputStream" + ex.getMessage());
+            System.err.println("Problem creating ObjectInputStream" + ex.getMessage());
         }
 
         return articles;
@@ -43,14 +45,15 @@ public class JavaTCPClient extends AsyncTask<String, Void, List<Article>> {
         Socket socket = null;
 
         try {
-//            InetAddress address = InetAddress.getLocalHost();                                                                 //For when the server is on the same computer
-//            InetAddress address = InetAddress.getByAddress(new byte[]{(byte) 192, (byte) 168, (byte) 1, (byte) 159,});        //For when the server is on a different computer
-            InetAddress address = InetAddress.getByAddress(new byte[]{(byte) 80, (byte) 210, (byte) 71, (byte) 238,});        //Public IP
-            socket = new Socket(address, 360);
+//            InetAddress address = InetAddress.getLocalHost();                                                                 //Server is on this pc (Virkede ikke på et tidspunkt)
+            InetAddress address = InetAddress.getByAddress(new byte[]{(byte) 192, (byte) 168, (byte) 87, (byte) 112,});        //Server is on different PC on local network
+//            InetAddress address = InetAddress.getByAddress(new byte[]{(byte) 80, (byte) 210, (byte) 71, (byte) 238,});        //Server is on different PC on public network
+            socket = new Socket(address, SERVER_PORT);
 
             System.out.println("Connected...\n");
         } catch (IOException ex) {
-            System.out.println("Problem establishing connection" + ex.getMessage());
+            System.err.println("Problem establishing connection: " + ex.getMessage());
+            System.exit(0);
         }
 
         return socket;
