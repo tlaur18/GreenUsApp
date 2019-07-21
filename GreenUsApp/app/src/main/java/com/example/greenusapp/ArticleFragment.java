@@ -67,6 +67,7 @@ public class ArticleFragment extends Fragment {
         //Get articles from server and add to list.
         JavaTCPClient client = new JavaTCPClient();
         try {
+            ArticleList.ITEMS.clear();
             ArticleList.ITEMS.addAll(client.execute().get());
         } catch (ExecutionException e) {
             e.printStackTrace();
@@ -118,7 +119,6 @@ public class ArticleFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onListFragmentInteraction(Article article);
     }
 }

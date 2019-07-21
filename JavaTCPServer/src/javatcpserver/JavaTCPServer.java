@@ -53,7 +53,7 @@ public class JavaTCPServer {
 
         int id = 0;
         for (File articleFile : articleFiles) {
-            String articleHeader = articleFile.getName();
+            String articleHeader = articleFile.getName().substring(0, articleFile.getName().lastIndexOf(".txt"));
             String articleBodyText = "";
 
             try (Scanner reader = new Scanner(articleFile)) {

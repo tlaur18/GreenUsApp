@@ -1,5 +1,6 @@
 package com.example.greenusapp;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import articlejar.Article;
 
@@ -20,6 +22,8 @@ public class MainActivity extends AppCompatActivity implements ArticleFragment.O
     private Fragment articleFragment;
     private Fragment videoFragment;
     private Fragment podcastFagment;
+
+    public static final String ARTICLE_TO_BE_READ = "com.example.greenusapp.ARTICLE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +65,9 @@ public class MainActivity extends AppCompatActivity implements ArticleFragment.O
 
     @Override
     public void onListFragmentInteraction(Article article) {
-
+        Intent intent = new Intent(this, ReadArticleActivity.class);
+        intent.putExtra(ARTICLE_TO_BE_READ, article);
+        startActivity(intent);
     }
 
     @Override

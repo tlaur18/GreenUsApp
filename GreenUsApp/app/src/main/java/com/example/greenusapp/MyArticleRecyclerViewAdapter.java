@@ -30,8 +30,7 @@ public class MyArticleRecyclerViewAdapter extends RecyclerView.Adapter<MyArticle
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_article, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_article, parent, false);
         return new ViewHolder(view);
     }
 
@@ -45,8 +44,7 @@ public class MyArticleRecyclerViewAdapter extends RecyclerView.Adapter<MyArticle
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
+                    // Notify the active callbacks interface (the activity, if the fragment is attached to one) that an item has been selected.
                     mListener.onListFragmentInteraction(holder.mItem);
                 }
             }
