@@ -46,7 +46,7 @@ public class JavaTCPClient extends AsyncTask<String, Void, List<Article>> {
 
         try {
 //            InetAddress address = InetAddress.getLocalHost();                                                                 //Server is on this pc (Virkede ikke på et tidspunkt)
-            InetAddress address = InetAddress.getByAddress(new byte[]{(byte) 192, (byte) 168, (byte) 87, (byte) 104,});        //Server is on different PC on local network
+            InetAddress address = InetAddress.getByAddress(new byte[]{(byte) 192, (byte) 168, (byte) 87, (byte) 112,});        //Server is on different PC on local network
 //            InetAddress address = InetAddress.getByAddress(new byte[]{(byte) 80, (byte) 210, (byte) 71, (byte) 238,});        //Server is on different PC on public network
             socket = new Socket(address, SERVER_PORT);
 

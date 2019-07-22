@@ -7,7 +7,6 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,7 +17,7 @@ import android.widget.VideoView;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link VideoFragment.OnFragmentInteractionListener} interface
+ * {@link OnPlayButtonPressedListener} interface
  * to handle interaction events.
  * Use the {@link VideoFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -33,7 +32,7 @@ public class VideoFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    private OnPlayButtonPressedListener mListener;
 
     private VideoView vid;
     private MediaController m;
@@ -82,10 +81,7 @@ public class VideoFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String path = "android.resource://" + getActivity().getPackageName() + "/" + R.raw.samplevid;
-                vid.setVideoURI(Uri.parse(path));
-//                vid.setMediaController(m);
-                vid.start();
+                mListener.onPlayButtonPressed(null);
             }
         });
 
@@ -95,18 +91,18 @@ public class VideoFragment extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onPlayButtonPressed(uri);
         }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnPlayButtonPressedListener) {
+            mListener = (OnPlayButtonPressedListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnPlayButtonPressedListener");
         }
     }
 
@@ -126,8 +122,11 @@ public class VideoFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    public interface OnPlayButtonPressedListener {
+        void onPlayButtonPressed(Uri uri);
+    }
+
+    public void setOnPlayButtonPressedListener(OnPlayButtonPressedListener callback) {
+        this.mListener = callback;
     }
 }

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-import com.example.greenusapp.dummy.ArticleList;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,11 +12,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.MenuItem;
-import android.widget.EditText;
+import android.widget.MediaController;
+import android.widget.VideoView;
 
 import articlejar.Article;
 
-public class MainActivity extends AppCompatActivity implements ArticleFragment.OnListFragmentInteractionListener, VideoFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements ArticleFragment.OnListFragmentInteractionListener, VideoFragment.OnPlayButtonPressedListener {
 
     private Fragment articleFragment;
     private Fragment videoFragment;
@@ -64,6 +64,14 @@ public class MainActivity extends AppCompatActivity implements ArticleFragment.O
     }
 
     @Override
+    public void onAttachFragment(Fragment fragment) {
+        if (fragment instanceof VideoFragment) {
+            VideoFragment videoFragment = (VideoFragment) fragment;
+            videoFragment.setOnPlayButtonPressedListener(this);
+        }
+    }
+
+    @Override
     public void onListFragmentInteraction(Article article) {
         Intent intent = new Intent(this, ReadArticleActivity.class);
         intent.putExtra(ARTICLE_TO_BE_READ, article);
@@ -71,7 +79,21 @@ public class MainActivity extends AppCompatActivity implements ArticleFragment.O
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void onPlayButtonPressed(Uri uri) {
+        String URL = "http://192.168.87.112:8081/Content/Videos/samplevid.mp4";
+//        setContentView(R.layout.mediaplayer);
+        VideoView videoView = (VideoView) findViewById(R.id.videoView);
 
+        if (videoView.isPlaying()) {
+            videoView.stopPlayback();
+        }
+
+        MediaController mc = new MediaController(this);
+        mc.setAnchorView(videoView);
+        mc.setMediaPlayer(videoView);
+        Uri video = Uri.parse(URL);
+        videoView.setMediaController(mc);
+        videoView.setVideoURI(video);
+        videoView.start();
     }
 }
