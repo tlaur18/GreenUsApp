@@ -26,6 +26,10 @@ public class Article implements Serializable {
         return bodyText;
     }
     
+    public void setBodyText(String text) {
+        this.bodyText = text;
+    }
+    
     public int getId() {
         return id;
     }

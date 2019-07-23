@@ -1,6 +1,7 @@
 package com.example.greenusapp;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,14 @@ import android.view.ViewGroup;
 import com.example.greenusapp.dummy.ArticleList;
 import com.example.greenusapp.persistence.JavaTCPClient;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import articlejar.Article;
@@ -32,6 +41,8 @@ public class ArticleFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+
+    public static final String ARTICLE_DIRECTORY_URL = "http://192.168.87.112:8081/Content/Articles";
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -66,14 +77,17 @@ public class ArticleFragment extends Fragment {
 
         //Get articles from server and add to list.
         JavaTCPClient client = new JavaTCPClient();
-        try {
-            ArticleList.ITEMS.clear();
-            ArticleList.ITEMS.addAll(client.execute().get());
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+        ArticleList.ITEMS.clear();
+//            ArticleList.ITEMS.addAll(client.execute().get());
+
+        fillArticleList();
+
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -88,6 +102,45 @@ public class ArticleFragment extends Fragment {
         }
 
         return view;
+    }
+
+    private void fillArticleList() {
+
+            AsyncTask asyncTask = new AsyncTask() {
+                @Override
+                protected Object doInBackground(Object[] objects) {
+                    try {
+                        Document directory = Jsoup.connect(ARTICLE_DIRECTORY_URL).get();
+                        List<Document> articles = new ArrayList<>();
+
+                        for (Element file : directory.getElementsByAttributeValueEnding("href", ".txt")) {
+                            Document article = Jsoup.connect(ARTICLE_DIRECTORY_URL + "/" + file.attr("href")).get();
+                            articles.add(article);
+                        }
+
+                        return articles;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                }
+            };
+
+        try {
+            List<Document> articles = (List<Document>) asyncTask.execute((Object) null).get();
+
+            int id = 0;
+            for (Document article : articles) {
+                String headLine = article.location().substring(article.location().lastIndexOf("/") + 1).replace("%20", " ");
+                String bodyText = article.body().text();
+                ArticleList.ITEMS.add(new Article(headLine, bodyText, id++));
+            }
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 
