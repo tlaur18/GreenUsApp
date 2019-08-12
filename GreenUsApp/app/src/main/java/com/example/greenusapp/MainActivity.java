@@ -3,17 +3,16 @@ package com.example.greenusapp;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.MenuItem;
 import android.widget.MediaController;
 import android.widget.VideoView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import articlejar.Article;
 
@@ -24,6 +23,11 @@ public class MainActivity extends AppCompatActivity implements ArticleFragment.O
     private Fragment podcastFagment;
 
     public static final String ARTICLE_TO_BE_READ = "com.example.greenusapp.ARTICLE";
+
+    public static final String ARTICLE_DIRECTORY_URL = "http://80.210.71.238:8081/Content/Articles";
+    //    public static final String ARTICLE_DIRECTORY_URL = "http://192.168.1.159:8081/Content/Articles";
+    public static final String VIDEO_DIRECTORY_URL = "http://80.210.71.238:8081/Content/Videos";
+//    public static final String VIDEO_DIRECTORY_URL = "http://192.168.1.159:8081/Content/Articles";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements ArticleFragment.O
 
     @Override
     public void onPlayButtonPressed(Uri uri) {
-        String URL = "http://192.168.87.112:8081/Content/Videos/samplevid.mp4";
+        String URL = VIDEO_DIRECTORY_URL + "/samplevid.mp4";
 //        setContentView(R.layout.mediaplayer);
         VideoView videoView = (VideoView) findViewById(R.id.videoView);
 

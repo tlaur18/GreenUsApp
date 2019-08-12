@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GreenUsApp</string>
+    <string name="app_name">App</string>
     <string name="title_articles">Artikler</string>
     <string name="title_videos">Videoer</string>
     <string name="title_podcast">Podcast</string>
