@@ -1,4 +1,4 @@
-package com.example.greenusapp;
+package com.example.greenusapp.videos;
 
 import android.content.Context;
 import android.net.Uri;
@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.VideoView;
+
+import com.example.greenusapp.R;
 
 
 /**

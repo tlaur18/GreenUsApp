@@ -1,9 +1,7 @@
-package com.example.greenusapp.dummy;
+package com.example.greenusapp.articles;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import articlejar.Article;
 

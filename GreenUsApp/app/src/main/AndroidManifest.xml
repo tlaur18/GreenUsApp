@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme"
         android:networkSecurityConfig="@xml/network_security_config">
         <activity
-            android:name=".ReadArticleActivity"
+            android:name=".articles.ReadArticleActivity"
             android:label="@string/title_activity_read_article"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity

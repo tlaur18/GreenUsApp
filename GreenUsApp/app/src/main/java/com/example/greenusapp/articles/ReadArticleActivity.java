@@ -1,4 +1,4 @@
-package com.example.greenusapp;
+package com.example.greenusapp.articles;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.greenusapp.MainActivity;
+import com.example.greenusapp.R;
 import com.example.greenusapp.network.ArticleContentLoader;
 
 import java.util.concurrent.ExecutionException;

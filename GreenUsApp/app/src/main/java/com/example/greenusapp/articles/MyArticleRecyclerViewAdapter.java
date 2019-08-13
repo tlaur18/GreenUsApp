@@ -1,4 +1,4 @@
-package com.example.greenusapp;
+package com.example.greenusapp.articles;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -7,7 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.greenusapp.ArticleFragment.OnListFragmentInteractionListener;
+import com.example.greenusapp.R;
+import com.example.greenusapp.articles.ArticleFragment.OnListFragmentInteractionListener;
 
 import java.util.List;
 

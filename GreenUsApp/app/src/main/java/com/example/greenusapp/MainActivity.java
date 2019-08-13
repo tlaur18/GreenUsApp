@@ -12,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.greenusapp.articles.ArticleFragment;
+import com.example.greenusapp.articles.ReadArticleActivity;
+import com.example.greenusapp.videos.VideoFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import articlejar.Article;

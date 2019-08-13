@@ -1,4 +1,4 @@
-package com.example.greenusapp;
+package com.example.greenusapp.articles;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.greenusapp.dummy.ArticleList;
+import com.example.greenusapp.R;
 import com.example.greenusapp.network.ArticleListLoader;
 
 import java.util.List;
